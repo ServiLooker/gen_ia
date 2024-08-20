@@ -1,5 +1,5 @@
 ---
-- dashboard: anio
+- dashboard: anio_2
   title: Año
   layout: newspaper
   preferred_viewer: dashboards-next
