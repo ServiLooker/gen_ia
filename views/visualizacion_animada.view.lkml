@@ -10,37 +10,26 @@ view: visualizacion_animada {
   dimension: bandera {
     type: string
     sql: ${TABLE}.country_code ;;
-    # DESARROLLO: Incrustamos la lógica de movimiento X e Y aquí
-    html:
-      <div style="
-        position: fixed;
-        width: 60px;
-        height: 40px;
-        /* El movimiento horizontal (X) se calcula con el Valor Estadístico */
-        left: {{ valor_estadistico._value | times: 0.000002 }}px;
-        /* El movimiento vertical (Y) se calcula con el Valor Estadístico */
-        bottom: {{ valor_estadistico._value | times: 0.02 }}px;
-        transition: all 1.5s ease-in-out;
-        z-index: 100;">
-        <img src="https://flagcdn.com/w80/{{ value | downcase }}.png" style="width: 100%; box-shadow: 3px 3px 10px rgba(0,0,0,0.2); border-radius: 4px;"/>
-        <div style="font-size: 11px; text-align: center; color: #111; font-weight: bold;">
-          {{ nombre_pais._value }}
-        </div>
-      </div> ;;
-  }
-
-  dimension: codigo {
-    type: string
-    sql: ${TABLE}.country_code ;;
+    html: <img src="https://flagcdn.com/w80/{{ value | downcase }}.png" width="50"/> ;;
   }
 
   dimension: nombre_pais {
+    label: "Nombre País"
     type: string
     sql: ${TABLE}.country_name ;;
   }
 
-  measure: valor_estadistico {
+  # EJE X: Población
+  measure: eje_x_poblacion {
+    label: "Población (Eje X)"
     type: sum
-    sql: ${TABLE}.value ;;
+    sql: CASE WHEN ${TABLE}.indicator_code = 'SP.POP.TOTL' THEN ${TABLE}.value ELSE NULL END ;;
+  }
+
+  # EJE Y: PIB / GDP
+  measure: eje_y_gdp {
+    label: "GDP (Eje Y)"
+    type: sum
+    sql: CASE WHEN ${TABLE}.indicator_code = 'NY.GDP.PCAP.CD' THEN ${TABLE}.value ELSE NULL END ;;
   }
 }
