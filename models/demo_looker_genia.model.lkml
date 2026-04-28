@@ -49,3 +49,5 @@ explore: municipios_2 {}
 explore: secop_pruebas {}
 
 explore: paises {}
+explore: prueba_animada {}
+explore: visualizacion_animada { label: "Gráfica de Banderas Animadas" }
