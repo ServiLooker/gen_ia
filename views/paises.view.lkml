@@ -68,31 +68,5 @@ view: paises {
   }
 
 
-# 1. Dimensión para el movimiento (Tiempo)
-
-# Asegúrate de que en tu tabla de BigQuery la columna se llame exactamente 'anio'
-  dimension: anio_animacion {
-    type: number
-    sql: ${TABLE}.anio ;;
-  }
-
-# 2. Dimensión para la bandera
-# Usamos el campo 'pais' que ya tienes definido arriba para traer la imagen
-  dimension: bandera {
-    type: string
-    sql: ${TABLE}.pais ;;
-    html: <img src="https://flagcdn.com/w80/{{ value | downcase }}.png" width="40" height="25"/> ;;
-  }
-
-# 3. Medidas para los ejes (Población y GDP)
-  measure: eje_x_poblacion {
-    type: sum
-    sql: ${TABLE}.poblacion ;;
-  }
-
-  measure: eje_y_gdp {
-    type: average
-    sql: ${TABLE}.gdp ;;
-  }
 
 }
